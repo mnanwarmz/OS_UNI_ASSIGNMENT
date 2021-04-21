@@ -1,4 +1,6 @@
 #include <iostream>
+#include <algorithm>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -10,11 +12,11 @@ private:
 	int priority;
 	int turnaround;
 	int completion;
+	int waiting;
 
 public:
 	void setArrival(int arrival)
 	{
-
 		this->arrival = arrival;
 	}
 	void setBurst(int burst)
@@ -29,25 +31,35 @@ public:
 	{
 		this->completion = completion;
 	}
-	int getArrival(int arrival)
+	void setWaiting(int waiting)
+	{
+		this->waiting = waiting;
+	}
+	int getArrival()
 	{
 		return arrival;
 	}
-	int getBurst(int burst)
+	int getBurst()
 	{
 		return burst;
 	}
-	int getPriority(int priority)
+	int getPriority()
 	{
 		return priority;
 	}
 	int getTurnaround()
 	{
+		completion - arrival;
+	}
+	int getCompletion()
+	{
+		return completion;
 	}
 };
 int getNoOfProcesses()
 {
 	int size;
+	int completion = 0;
 
 	cout << "How many processes would you like: \n";
 	do
@@ -62,12 +74,34 @@ int getNoOfProcesses()
 	return size;
 }
 
+void swap(Process *xp, Process *yp)
+{
+	Process temp = *xp;
+	*xp = *yp;
+	*yp = temp;
+}
+
+// A function to implement bubble sort
+void bubbleSort(Process arr[], int n)
+{
+	int i, j;
+	for (i = 0; i < n - 1; i++)
+
+		for (j = 0; j < n - i - 1; j++)
+			if (arr[j].getPriority() > arr[j + 1].getPriority())
+				swap(&arr[j], &arr[j + 1]);
+}
+
 int main()
 {
 	int size;
 	int arrival;
 	int priority;
 	int burst;
+	int completion = 0;
+	int totalTurnaround = 0;
+	int avgTurnaround = 0;
+	int avgWaiting = 0;
 
 	size = getNoOfProcesses();
 	Process P[size];
@@ -76,19 +110,27 @@ int main()
 	cout << "Define the details of each processes" << endl;
 	for (int i = 0; i < size; i++)
 	{
-		cout << "Arrival Time of Process " << i + 1 << endl;
+		cout << "Arrival Time of Process " << i + 1 << " :";
 		cin >> arrival;
 		P[i].setArrival(arrival);
-		cout << "Burst Time of Process " << i + 1 << endl;
+		cout << "Burst Time of Process " << i + 1 << " :";
 		cin >> burst;
 		P[i].setBurst(burst);
-		cout << "Priority of Process " << i + 1 << endl;
+		cout << "Priority of Process " << i + 1 << " :";
 		cin >> priority;
 		P[i].setPriority(priority);
 	}
-	for (int i = 0; i < size; i++)
-	{
-	}
-
 	P[0].setArrival(0);
+	bubbleSort(P, size);
+
+	for (size_t i = 0; i < size; i++)
+	{
+		completion += P[i].getBurst();
+		P[i].setCompletion(completion);
+		totalTurnaround += P[i].getTurnaround();
+		if (P[i].getArrival() == 0)
+			P[i].setWaiting(0);
+		else
+			P[i].setWaiting(P[i - 1].getCompletion());
+	}
 }
