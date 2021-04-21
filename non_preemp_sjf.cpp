@@ -46,6 +46,14 @@ public:
 	{
 		return completion;
 	}
+	int getWaiting()
+	{
+		return waiting;
+	}
+	int getTurnaround()
+	{
+		return turnaround;
+	}
 };
 int getNoOfProcesses()
 {
@@ -90,9 +98,10 @@ int main()
 	int priority;
 	int burst;
 	int completion = 0;
-	int totalTurnaround = 0;
-	int avgTurnaround = 0;
-	int avgWaiting = 0;
+	float totalTurnaround = 0;
+	float totalWaiting = 0;
+	float avgTurnaround = 0;
+	float avgWaiting = 0;
 
 	size = getNoOfProcesses();
 	Process P[size];
@@ -120,5 +129,9 @@ int main()
 			P[i].setWaiting(0);
 		else
 			P[i].setWaiting(P[i - 1].getCompletion());
+		totalWaiting += P[i].getWaiting();
+		totalTurnaround += P[i].getTurnaround();
 	}
+	avgWaiting = totalWaiting / size;
+	avgTurnaround = totalTurnaround / size;
 }
