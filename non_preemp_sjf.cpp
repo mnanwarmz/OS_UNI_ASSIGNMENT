@@ -1,60 +1,10 @@
 #include <iostream>
 #include <algorithm>
 #include <bits/stdc++.h>
+#include "Process.cpp"
 
 using namespace std;
 
-class Process
-{
-private:
-	int burst;
-	int arrival;
-	int turnaround;
-	int completion;
-	int waiting;
-
-public:
-	void setArrival(int arrival)
-	{
-		this->arrival = arrival;
-	}
-	void setBurst(int burst)
-	{
-		this->burst = burst;
-	}
-	void setCompletion(int completion)
-	{
-		this->completion = completion;
-	}
-	void setWaiting(int waiting)
-	{
-		this->waiting = waiting;
-	}
-	int getArrival()
-	{
-		return arrival;
-	}
-	int getBurst()
-	{
-		return burst;
-	}
-	int getTurnaround()
-	{
-		completion - arrival;
-	}
-	int getCompletion()
-	{
-		return completion;
-	}
-	int getWaiting()
-	{
-		return waiting;
-	}
-	int getTurnaround()
-	{
-		return turnaround;
-	}
-};
 int getNoOfProcesses()
 {
 	int size;
