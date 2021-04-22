@@ -3,6 +3,7 @@
 		"*.html": "html",
 		"*.module": "php",
 		"iostream": "cpp",
-		"ostream": "cpp"
+		"ostream": "cpp",
+		"iomanip": "cpp"
 	}
 }

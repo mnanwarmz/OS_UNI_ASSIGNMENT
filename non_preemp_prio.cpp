@@ -166,6 +166,10 @@ void bubbleSort(Process arr[], int n)
 				swap(&arr[j], &arr[j + 1]);
 }
 
+void process_name(int i ){
+	cout<<"Process"<<i+1;
+}
+
 int main()
 {
 	int size;
@@ -220,13 +224,14 @@ int main()
 	cout << "Average Waiting Time :" << avgWaiting << endl;
 
 	cout << "|"
-		 << "Process" << setw(10) << "   |   " << setw(5) << "Burst Time" << setw(5) << "   |   " << setw(5) << "Arrival Time" << setw(5) << "   |   " << setw(5) << "Priority" << setw(5) << "   |   " << setw(5) << "Turnaround Time" << setw(5) << "   |   " << setw(5) << "Waiting Time" << setw(5) << "   |   " << setw(5) << "Completion Time"
+		 << "Process" << setw(10) << "|" << setw(5) << "Burst Time" << setw(5) << "|" << setw(5) << "Arrival Time" << setw(5) << "|" << setw(5) << "Priority" << setw(5) << "|" << setw(5) << "Turnaround Time" << setw(5) << "|" << setw(5) << "Waiting Time" << setw(5) << "   |" << setw(5) << "Completion Time"
 		 << "   |" << endl;
 	for (int i = 0; i < size; i++)
 	{
+
 		cout << "|"
-			 << "Process " << i + 1 << setw(10) << "   |   " << setw(5) << P[i].getBurst() << setw(5) << "   |   " << setw(5) << P[i].getArrival() << setw(5) << "   |   " << setw(5) << P[i].getPriority() << setw(5) << "   |   " << setw(5) << P[i].getTurnaround() << setw(5) << "   |   " << setw(5) << P[i].getWaiting() << setw(5) << "   |   " << setw(5) << P[i].getCompletion()
-			 << "   |" << endl;
+			 <<"Process"<<i+1<< setw(10) << "|" << setw(5) << P[i].getBurst() << setw(5) << "|" << setw(5) << P[i].getArrival() << setw(5) << "|" << setw(5) << P[i].getPriority() << setw(5) << "   |   " << setw(5) << P[i].getTurnaround() << setw(5) << "   |   " << setw(5) << P[i].getWaiting() << setw(5) <<"	|	" << setw(5) << P[i].getCompletion()
+			 << "   |  " << endl;
 	}
 
 	// gantt_chart(P, size);
