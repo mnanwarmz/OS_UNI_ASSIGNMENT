@@ -68,8 +68,6 @@ bool exists(int x, int arr[], int size)
 	{
 		if (x == arr[i])
 			return true;
-		else
-			return false;
 	}
 	return false;
 }
@@ -80,8 +78,6 @@ int key_value(int x, int arr[], int size)
 	{
 		if (x == arr[i])
 			return i;
-		else
-			return 0;
 	}
 	return 0;
 }
@@ -108,8 +104,7 @@ void gantt_chart(Process *P, int length)
 	{
 		if (i == 0 || exists(i, completions, arrSize))
 			cout << "+";
-		else
-			cout << "-";
+		cout << "-";
 	}
 	cout << endl;
 	for (int i = 0; i < length; i++)
@@ -166,8 +161,9 @@ void bubbleSort(Process arr[], int n)
 				swap(&arr[j], &arr[j + 1]);
 }
 
-void process_name(int i ){
-	cout<<"Process"<<i+1;
+void process_name(int i)
+{
+	cout << "Process" << i + 1;
 }
 
 int main()
@@ -230,9 +226,9 @@ int main()
 	{
 
 		cout << "|"
-			 <<"Process"<<i+1<< setw(10) << "|" << setw(5) << P[i].getBurst() << setw(5) << "|" << setw(5) << P[i].getArrival() << setw(5) << "|" << setw(5) << P[i].getPriority() << setw(5) << "   |   " << setw(5) << P[i].getTurnaround() << setw(5) << "   |   " << setw(5) << P[i].getWaiting() << setw(5) <<"	|	" << setw(5) << P[i].getCompletion()
+			 << "Process" << i + 1 << setw(10) << "|" << setw(5) << P[i].getBurst() << setw(5) << "|" << setw(5) << P[i].getArrival() << setw(5) << "|" << setw(5) << P[i].getPriority() << setw(5) << "   |   " << setw(5) << P[i].getTurnaround() << setw(5) << "   |   " << setw(5) << P[i].getWaiting() << setw(5) << "	|	" << setw(5) << P[i].getCompletion()
 			 << "   |  " << endl;
 	}
 
-	// gantt_chart(P, size);
+	gantt_chart(P, completion);
 }
