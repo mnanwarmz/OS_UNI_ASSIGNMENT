@@ -3,6 +3,7 @@
 #include <iterator>
 #include <iomanip>
 
+
 using namespace std;
 class Process
 {
@@ -224,14 +225,14 @@ int main()
 	cout << "Average Waiting Time :" << avgWaiting << endl;
 
 	cout << "|"
-		 << "Process" << setw(10) << "|" << setw(5) << "Burst Time" << setw(5) << "|" << setw(5) << "Arrival Time" << setw(5) << "|" << setw(5) << "Priority" << setw(5) << "|" << setw(5) << "Turnaround Time" << setw(5) << "|" << setw(5) << "Waiting Time" << setw(5) << "   |" << setw(5) << "Completion Time"
-		 << "   |" << endl;
+		 << "Process" << setw(10) << "|" << setw(10) << "Burst Time" << setw(10) << "|" << setw(10) << "Arrival Time" << setw(10) << "|" << setw(10) << "Priority" << setw(10) << "|" << setw(10) << "Turnaround Time" << setw(10) << "|" << setw(10) << "Waiting Time" << setw(10) << "   |" << setw(10) << "Completion Time"
+		 << "   |  " << endl;
 	for (int i = 0; i < size; i++)
 	{
 
 		cout << "|"
-			 <<"Process"<<i+1<< setw(10) << "|" << setw(5) << P[i].getBurst() << setw(5) << "|" << setw(5) << P[i].getArrival() << setw(5) << "|" << setw(5) << P[i].getPriority() << setw(5) << "   |   " << setw(5) << P[i].getTurnaround() << setw(5) << "   |   " << setw(5) << P[i].getWaiting() << setw(5) <<"	|	" << setw(5) << P[i].getCompletion()
-			 << "   |  " << endl;
+			 <<"Process"<<i+1<< setw(10) << "" << setw(10) << P[i].getBurst() << setw(10) << "\t" << setw(10) << P[i].getArrival() << setw(10) << "\t" << setw(10) << P[i].getPriority() << setw(10) << "\t" << setw(10) << P[i].getTurnaround() << setw(10) << "\t" << setw(10) << P[i].getWaiting() << setw(5) <<"\t" << setw(10) << P[i].getCompletion()
+			 << "   |   " << endl;
 	}
 
 	// gantt_chart(P, size);
