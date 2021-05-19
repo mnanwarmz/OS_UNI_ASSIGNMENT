@@ -83,8 +83,6 @@ bool exists(int x, int arr[], int size)
 	{
 		if (x == arr[i])
 			return true;
-		else
-			return false;
 	}
 	return false;
 }
@@ -95,8 +93,6 @@ int key_value(int x, int arr[], int size)
 	{
 		if (x == arr[i])
 			return i;
-		else
-			return 0;
 	}
 	return 0;
 }
@@ -179,10 +175,16 @@ void printGanttChart( int completions[],int midPoints[],int length)
 	cout<<TL;
 	for(int i = 0; i < midPoints; i++)
 	{
+<<<<<<< HEAD
 		for(int x = 0; x < 6; x++)
 			cout<<HORZ;
 		if(i+1 != midPoints)
 			cout<<TM;
+=======
+		if (i == 0 || exists(i, completions, arrSize))
+			cout << "+";
+		cout << "-";
+>>>>>>> b706d4f6cdf523e2a3ddbe7a51f35802a1b8211f
 	}
 	cout<<TR<<endl;
 	for(int i = 0; i < midPoints; i++)
@@ -242,8 +244,9 @@ void bubbleSort(Process arr[], int n)
 				swap(&arr[j], &arr[j + 1]);
 }
 
-void process_name(int i ){
-	cout<<"Process"<<i+1;
+void process_name(int i)
+{
+	cout << "Process" << i + 1;
 }
 int main()
 {
@@ -314,9 +317,18 @@ int main()
 	{
 
 		cout << "|"
+<<<<<<< HEAD
 			 <<" Process"<<i+1<< setw(10) << "" << setw(10) << P[i].getBurst() << setw(10) << "\t" << setw(10) << P[i].getArrival() << setw(10) << "\t" << setw(10) << P[i].getPriority() << setw(10) << "\t" << setw(10) << P[i].getTurnaround() << setw(10) << "\t" << setw(10) << P[i].getWaiting() << setw(10) <<"\t" << setw(15) << P[i].getCompletion()
 			 << "" << endl;
+=======
+			 << "Process" << i + 1 << setw(10) << "|" << setw(5) << P[i].getBurst() << setw(5) << "|" << setw(5) << P[i].getArrival() << setw(5) << "|" << setw(5) << P[i].getPriority() << setw(5) << "   |   " << setw(5) << P[i].getTurnaround() << setw(5) << "   |   " << setw(5) << P[i].getWaiting() << setw(5) << "	|	" << setw(5) << P[i].getCompletion()
+			 << "   |  " << endl;
+>>>>>>> b706d4f6cdf523e2a3ddbe7a51f35802a1b8211f
 	}
 	printGanttChart(length,completions,midPoints);
 
+<<<<<<< HEAD
+=======
+	gantt_chart(P, completion);
+>>>>>>> b706d4f6cdf523e2a3ddbe7a51f35802a1b8211f
 }
