@@ -68,8 +68,6 @@ bool exists(int x, int arr[], int size)
 	{
 		if (x == arr[i])
 			return true;
-		else
-			return false;
 	}
 	return false;
 }
@@ -80,15 +78,13 @@ int key_value(int x, int arr[], int size)
 	{
 		if (x == arr[i])
 			return i;
-		else
-			return 0;
 	}
 	return 0;
 }
 
-void gantt_chart(Process *P, int length)
+void gantt_chart(Process P[], int length, int size)
 {
-	int arrSize = sizeof(P) / sizeof(P[0]);
+	int arrSize = size;
 	int completions[arrSize];
 	int midPoints[arrSize];
 
@@ -97,6 +93,7 @@ void gantt_chart(Process *P, int length)
 		if (P[i].getCompletion())
 			completions[i] = P[i].getCompletion();
 	}
+
 	for (int i = 0; i < arrSize; i++)
 	{
 		if (P[i].getCompletion())
@@ -104,25 +101,30 @@ void gantt_chart(Process *P, int length)
 	}
 
 	// Top Part
-	for (int i = 0; i < length; i++)
+	for (int i = 0; i <= length; i++)
 	{
 		if (i == 0 || exists(i, completions, arrSize))
 			cout << "+";
 		else
 			cout << "-";
 	}
+	// Middle Part
 	cout << endl;
 	for (int i = 0; i < length; i++)
 	{
-		if (i == 0 || exists(i, completions, arrSize))
+		if (i == 0)
 			cout << "|";
-		else if (exists(i, midPoints, arrSize))
+		if (exists(i, midPoints, arrSize))
+		{
 			cout << "P" << key_value(i, midPoints, arrSize);
+			cout << "|";
+		}
 		else
 			cout << " ";
 	}
+	// Bottom Part
 	cout << endl;
-	for (int i = 0; i < length; i++)
+	for (int i = 0; i <= length; i++)
 	{
 		if (i == 0 || exists(i, completions, arrSize))
 			cout << "+";
@@ -166,8 +168,9 @@ void bubbleSort(Process arr[], int n)
 				swap(&arr[j], &arr[j + 1]);
 }
 
-void process_name(int i ){
-	cout<<"Process"<<i+1;
+void process_name(int i)
+{
+	cout << "Process" << i + 1;
 }
 
 int main()
@@ -230,9 +233,9 @@ int main()
 	{
 
 		cout << "|"
-			 <<"Process"<<i+1<< setw(10) << "|" << setw(5) << P[i].getBurst() << setw(5) << "|" << setw(5) << P[i].getArrival() << setw(5) << "|" << setw(5) << P[i].getPriority() << setw(5) << "   |   " << setw(5) << P[i].getTurnaround() << setw(5) << "   |   " << setw(5) << P[i].getWaiting() << setw(5) <<"	|	" << setw(5) << P[i].getCompletion()
+			 << "Process" << i + 1 << setw(10) << "|" << setw(5) << P[i].getBurst() << setw(5) << "|" << setw(5) << P[i].getArrival() << setw(5) << "|" << setw(5) << P[i].getPriority() << setw(5) << "   |   " << setw(5) << P[i].getTurnaround() << setw(5) << "   |   " << setw(5) << P[i].getWaiting() << setw(5) << "	|	" << setw(5) << P[i].getCompletion()
 			 << "   |  " << endl;
 	}
 
-	// gantt_chart(P, size);
+	gantt_chart(P, completion, size);
 }
