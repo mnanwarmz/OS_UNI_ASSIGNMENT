@@ -2,9 +2,23 @@
 #include <algorithm>
 #include <iterator>
 #include <iomanip>
-
+#include<windows.h>
+#include<cmath>
 
 using namespace std;
+
+const char HORZ = 196;
+const char VERT = 179;
+const char TL   = 218;
+const char TM   = 194;
+const char TR   = 191;
+const char BL   = 192;
+const char BM   = 193;           
+const char BR   = 217;
+const char VH   = 197;
+const char VR   = 195;
+const char VL   = 180;
+
 class Process
 {
 private:
@@ -86,50 +100,111 @@ int key_value(int x, int arr[], int size)
 	}
 	return 0;
 }
+// void table (int size[], int burst[], int arrival[], int completion[],int priotity[], float totalTurnaround[],float totalWaiting[])
+//  {
+// 	cout<<endl<<"Results";
+// 	printTableHorz(TL, TM, TR);
+// 	cout<<endl<<VERT<<"			"<<VERT<<"PROCES"<<VERT<<"BURST TIME"<<VERT<<"ARRIVAL TIME"<<VERT<<"PRIORITY"<<VERT<<"TURNAROUND TIME"<<VERT<<"WAITING TIME"<<VERT<<"COMPLETION TIME";
+// 	for (int i = 0; i < size; i++)
+// 	{
+// 		printTableHorz(VR, VH, VL);
+// 		cout<<left;
+// 		cout<<endl<<VERT<<" P"<<setw(7)<<i<<VERT<<" "<<setw(13)<<burst[i]<<VERT<<" "<<setw(11)<<arrival[i]<<VERT<<" "<<setw(9)<<priority[i]<<VERT<<" "<<setw(15)<<totalTurnaround[i]<<VERT<<" "<<setw(16)<<[i]<<VERT<<" "<<setw(13)<<totalWaiting[i]<<VERT<<setprecision(5)<<" "<<setw(21)<<completion[i]<<VERT;
+// 	}
 
-void gantt_chart(Process *P, int length)
+
+// }
+void printTableHorz(char P1, char P2, char P3)
 {
-	int arrSize = sizeof(P) / sizeof(P[0]);
-	int completions[arrSize];
-	int midPoints[arrSize];
+	int length[8] = {9, 14, 12, 10, 16, 17, 14, 22};
+	
+	cout<<endl<<P1;
+	for(int i = 0; i < 8; i++)
+	{
+		for(int x = 0; x < length[i]; x++)
+			cout<<HORZ;
+		if(i != 7)
+			cout<<P2;
+		else
+			cout<<P3;
+	}
+}
+// void gantt_chart(Process *P, int length)
+// {
+// 	int arrSize = sizeof(P) / sizeof(P[0]);
+// 	int completions[arrSize];
+// 	int midPoints[arrSize];
 
-	for (int i = 0; i < arrSize; i++)
-	{
-		if (P[i].getCompletion())
-			completions[i] = P[i].getCompletion();
-	}
-	for (int i = 0; i < arrSize; i++)
-	{
-		if (P[i].getCompletion())
-			midPoints[i] = P[i].getCompletion() / 2;
-	}
+// 	for (int i = 0; i < arrSize; i++)
+// 	{
+// 		if (P[i].getCompletion())
+// 			completions[i] = P[i].getCompletion();
+// 	}
+// 	for (int i = 0; i < arrSize; i++)
+// 	{
+// 		if (P[i].getCompletion())
+// 			midPoints[i] = P[i].getCompletion() / 2;
+// 	}
 
-	// Top Part
-	for (int i = 0; i < length; i++)
+// 	// Top Part
+// 	for (int i = 0; i < length; i++)
+// 	{
+// 		if (i == 0 || exists(i, completions, arrSize))
+// 			cout << "+";
+// 		else
+// 			cout << "-";
+// 	}
+// 	cout << endl;
+// 	for (int i = 0; i < length; i++)
+// 	{
+// 		if (i == 0 || exists(i, completions, arrSize))
+// 			cout << "|";
+// 		else if (exists(i, midPoints, arrSize))
+// 			cout << "P" << key_value(i, midPoints, arrSize);
+// 		else
+// 			cout << " ";
+// 	}
+// 	cout << endl;
+// 	for (int i = 0; i < length; i++)
+// 	{
+// 		if (i == 0 || exists(i, completions, arrSize))
+// 			cout << "+";
+// 		else
+// 			cout << "-";
+// 	}
+// }
+void printGanttChart( int completions[],int midPoints[],int length)
+{
+	cout<<endl<<endl<<"Gantt Chart: "<<endl;
+	cout<<TL;
+	for(int i = 0; i < midPoints; i++)
 	{
-		if (i == 0 || exists(i, completions, arrSize))
-			cout << "+";
-		else
-			cout << "-";
+		for(int x = 0; x < 6; x++)
+			cout<<HORZ;
+		if(i+1 != midPoints)
+			cout<<TM;
 	}
-	cout << endl;
-	for (int i = 0; i < length; i++)
+	cout<<TR<<endl;
+	for(int i = 0; i < midPoints; i++)
 	{
-		if (i == 0 || exists(i, completions, arrSize))
-			cout << "|";
-		else if (exists(i, midPoints, arrSize))
-			cout << "P" << key_value(i, midPoints, arrSize);
+		cout<<VERT;
+		if(length[i] != -1)
+			cout<<"  P"<<midPoints[i]<<"  ";
 		else
-			cout << " ";
+			cout<<"  XX  ";
 	}
-	cout << endl;
-	for (int i = 0; i < length; i++)
+	cout<<VERT<<endl<<BL;
+	for(int i = 0; i < midPoints; i++)
 	{
-		if (i == 0 || exists(i, completions, arrSize))
-			cout << "+";
-		else
-			cout << "-";
+		for(int x = 0; x < 6; x++)
+			cout<<HORZ;
+		if(i+1 != midPoints)
+			cout<<BM;
 	}
+	cout<<BR;
+	cout<<endl<<"0";
+	for(int i = 0; i < midPoints; i++)
+			cout<<setw(7)<<completions[i];
 }
 
 int getNoOfProcesses()
@@ -170,9 +245,14 @@ void bubbleSort(Process arr[], int n)
 void process_name(int i ){
 	cout<<"Process"<<i+1;
 }
-
 int main()
 {
+		//rezie the window
+	HWND console = GetConsoleWindow();
+	RECT ConsoleRect;
+	GetWindowRect(console, &ConsoleRect);
+	MoveWindow(console, ConsoleRect.left, ConsoleRect.top, 1100, 500, TRUE);
+
 	int size;
 	int arrival;
 	int priority;
@@ -182,6 +262,8 @@ int main()
 	float totalWaiting = 0;
 	float avgTurnaround = 0;
 	float avgWaiting = 0;
+	// void table (int size[], int burst[], int arrival[], int completion[],int priotity[], float totalTurnaround[],float totalWaiting[]);
+	void printGanttChart(int length, int completions[],int midPoints[]);
 
 	size = getNoOfProcesses();
 	Process P[size];
@@ -223,17 +305,18 @@ int main()
 	cout << "Average Turnaround Time :" << avgTurnaround << endl;
 	cout << "Total Waiting Time :" << totalWaiting << endl;
 	cout << "Average Waiting Time :" << avgWaiting << endl;
+	
 
 	cout << "|"
-		 << "Process" << setw(10) << "|" << setw(10) << "Burst Time" << setw(10) << "|" << setw(10) << "Arrival Time" << setw(10) << "|" << setw(10) << "Priority" << setw(10) << "|" << setw(10) << "Turnaround Time" << setw(10) << "|" << setw(10) << "Waiting Time" << setw(10) << "   |" << setw(10) << "Completion Time"
+		 << " Process" << setw(10) << "|" << setw(10) << " Burst Time" << setw(10) << "|" << setw(10) << " Arrival Time" << setw(10) << "|" << setw(10) << " Priority" << setw(10) << "|" << setw(10) << " Turnaround Time" << setw(10) << "|" << setw(20) << "Waiting Time" << setw(10) << "   |" << setw(15) << " Completion Time"
 		 << "   |  " << endl;
 	for (int i = 0; i < size; i++)
 	{
 
 		cout << "|"
-			 <<"Process"<<i+1<< setw(10) << "" << setw(10) << P[i].getBurst() << setw(10) << "\t" << setw(10) << P[i].getArrival() << setw(10) << "\t" << setw(10) << P[i].getPriority() << setw(10) << "\t" << setw(10) << P[i].getTurnaround() << setw(10) << "\t" << setw(10) << P[i].getWaiting() << setw(5) <<"\t" << setw(10) << P[i].getCompletion()
-			 << "   |   " << endl;
+			 <<" Process"<<i+1<< setw(10) << "" << setw(10) << P[i].getBurst() << setw(10) << "\t" << setw(10) << P[i].getArrival() << setw(10) << "\t" << setw(10) << P[i].getPriority() << setw(10) << "\t" << setw(10) << P[i].getTurnaround() << setw(10) << "\t" << setw(10) << P[i].getWaiting() << setw(10) <<"\t" << setw(15) << P[i].getCompletion()
+			 << "" << endl;
 	}
+	printGanttChart(length,completions,midPoints);
 
-	// gantt_chart(P, size);
 }
