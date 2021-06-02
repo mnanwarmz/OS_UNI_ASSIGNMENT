@@ -1,9 +1,21 @@
 #include <iostream>
 #include <algorithm>
 
+#include "utility.cpp"
 
 using namespace std;
 
+const char HORZ = 196;
+const char VERT = 179;
+const char TL   = 218;
+const char TM   = 194;
+const char TR   = 191;
+const char BL   = 192;
+const char BM   = 193;
+const char BR   = 217;
+const char VH   = 197;
+const char VR   = 195;
+const char VL   = 180;
 class Process
 {
 private:
@@ -61,6 +73,40 @@ public:
 		return waiting;
 	}
 };
+
+void printGanttChart(int count, int order[], int clock[])
+{
+	cout<<endl<<endl<<"Gantt Chart: "<<endl;
+	cout<<TL;
+	for(int i = 0; i < count; i++)
+	{
+		for(int x = 0; x < 6; x++)
+			cout<<HORZ;
+		if(i+1 != count)
+			cout<<TM;
+	}
+	cout<<TR<<endl;
+	for(int i = 0; i < count; i++)
+	{
+		cout<<VERT;
+		if(order[i] != -1)
+			cout<<"  P"<<order[i]<<"  ";
+		else
+			cout<<"  XX  ";
+	}
+	cout<<VERT<<endl<<BL;
+	for(int i = 0; i < count; i++)
+	{
+		for(int x = 0; x < 6; x++)
+			cout<<HORZ;
+		if(i+1 != count)
+			cout<<BM;
+	}
+	cout<<BR;
+	cout<<endl<<"0";
+	for(int i = 0; i < count; i++)
+			cout<<setw(7)<<clock[i];
+}
 
 int getNoOfProcesses()
 {
@@ -141,4 +187,6 @@ int main()
 	}
 	avgWaiting = totalWaiting / size;
 	avgTurnaround = totalTurnaround / size;
+
+	printGanttChart(size,)
 }
