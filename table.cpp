@@ -84,21 +84,3 @@ void printTable( float avg[], float sum[], int tJobs, Process P[])
 	cout<<endl<<VERT<<" Average "<<VERT<<setw(15)<<right<<VERT<<setw(13)<<VERT<<setw(11)<<VERT<<setw(17)<<VERT<<" "<<setw(16)<<left<<avg[0]<<VERT<<" "<<setw(13)<<avg[1]<<right<<VERT;
 	printTableHorz(BL, BM, BR);
 }
-
-void printTableSJF( float avg[], float sum[], int tJobs, Process P[])
-{
-	cout<<endl<<"Table: ";
-	printTableHorz(TL, TM, TR);
-	cout<<endl<<VERT<<"         "<<VERT<<" Arrival Time "<<VERT<<" Burst Time "<<VERT<<" Priority "<<VERT<<" Finishing Time "<<VERT<<" Turnaround Time "<<VERT<<" Waiting Time "<<VERT;
-	for(int i = 0; i < tJobs; i++)
-	{
-		printTableHorz(VR, VH, VL);
-		cout<<left;
-		cout<<endl<<VERT<<" P"<<setw(7)<<P[i].getName()<<VERT<<" "<<setw(13)<<P[i].getArrival()<<VERT<<" "<<setw(11)<<P[i].getBurst()<<VERT<<" "<<setw(9)<<"-"<<VERT<<" "<<setw(15)<<P[i].getCompletion()<<VERT<<" "<<setw(16)<<P[i].getTurnaround()<<VERT<<" "<<setw(13)<<P[i].getWaiting()<<VERT;
-	}
-	printTableHorz(VR, VH, VL);
-	cout<<endl<<VERT<<" Total   "<<VERT<<setw(15)<<right<<VERT<<setw(13)<<VERT<<setw(11)<<VERT<<setw(17)<<VERT<<" "<<setw(16)<<left<<sum[0]<<VERT<<" "<<setw(13)<<sum[1]<<VERT;
-	printTableHorz(VR, VH, VL);
-	cout<<endl<<VERT<<" Average "<<VERT<<setw(15)<<right<<VERT<<setw(13)<<VERT<<setw(11)<<VERT<<setw(17)<<VERT<<" "<<setw(16)<<left<<avg[0]<<VERT<<" "<<setw(13)<<avg[1]<<right<<VERT;
-	printTableHorz(BL, BM, BR);
-}

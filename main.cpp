@@ -79,6 +79,7 @@ int main()
 	int burst;
 	int completion = 0;
 	int algoType;
+	int quantum;
 	float totalTurnaround = 0;
 	float totalWaiting = 0;
 	float avgTurnaround = 0;
@@ -93,8 +94,6 @@ int main()
 	Process P[size];
 
 	// Setting details for each processes
-	if(algoType == 1)
-	{
 		cout << "Define the details of each processes" << endl;
 		for (int i = 0; i < size; i++)
 		{
@@ -104,34 +103,19 @@ int main()
 			cout << "Burst Time of Process " << i + 1 << " :";
 			cin >> burst;
 			P[i].setBurst(burst);
+			if(algoType == 2)
+			{
+				cout << "Priority of Process " << i + 1 << " :";
+				cin >> priority;
+				P[i].setPriority(priority);
+			}
 			P[i].setName(i);
 		}
 
-		for(size_t i = 0; i < size; i++)
+		if(algoType == 3)
 		{
-			bubbleSortArrival(P, size,i);
-			bubbleSortBurst(P,size,completion,i);
-			completion += P[i].getBurst();
-			P[i].setCompletion(completion);
-			if(!(P[i + 1].getArrival() <= completion))
-				break;
-		}
-	}
-	if(algoType == 2)
-	{
-		cout << "Define the details of each processes" << endl;
-		for (int i = 0; i < size; i++)
-		{
-			cout << "Arrival Time of Process " << i + 1 << " :";
-			cin >> arrival;
-			P[i].setArrival(arrival);
-			cout << "Burst Time of Process " << i + 1 << " :";
-			cin >> burst;
-			P[i].setBurst(burst);
-			cout << "Priority of Process " << i + 1 << " :";
-			cin >> priority;
-			P[i].setPriority(priority);
-			P[i].setName(i);
+			cout<< "Enter Quantum"<<endl;
+			cin>>quantum;
 		}
 
 		for(size_t i = 0; i < size; i++)
@@ -146,7 +130,7 @@ int main()
 			if(!(P[i + 1].getArrival() <= completion))
 				break;
 		}
-	}
+
 
 	for(int i = 0;i < size;i++)
 	{
@@ -175,9 +159,6 @@ int main()
 
 	float avg[2] = {avgTurnaround,avgWaiting};
 	float total[2] = {totalTurnaround,totalWaiting};
-	if(algoType == 1)
-		printTableSJF(avg,total,size,P);
-	if(algoType == 2)
 		printTable(avg,total,size,P);
 	printGanttChart(size,name,time);
 

@@ -6,7 +6,7 @@ class Process
 		int name;
 		int burst;
 		int arrival;
-		int priority;
+		int priority = 0;
 		int completion;
 		int waiting;
 		int turnaround;
@@ -39,6 +39,8 @@ class Process
 		int getWaiting()
 		{
 			waiting = turnaround - burst;
+			if(waiting <= 0)
+				waiting = 0;
 			return waiting;
 		}
 		void setArrival(int arrival)
