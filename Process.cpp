@@ -5,15 +5,20 @@ class Process
 	private:
 		int name;
 		int burst;
+		int ori_burst;
 		int arrival;
 		int priority = 0;
-		int completion;
+		int completion = 0;
 		int waiting;
 		int turnaround;
 	public:
 		int	getBurst()
 		{
 			return burst;
+		}
+		int	getOriginalBurst()
+		{
+			return ori_burst;
 		}
 		int	getArrival()
 		{
@@ -50,6 +55,10 @@ class Process
 		void setBurst(int burst)
 		{
 			this->burst = burst;
+		}
+		void setOriginalBurst(int burst)
+		{
+			this->ori_burst = burst;
 		}
 		void setPriority(int priority)
 		{

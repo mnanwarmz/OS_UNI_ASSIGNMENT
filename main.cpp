@@ -80,6 +80,7 @@ int main()
 	int completion = 0;
 	int algoType;
 	int quantum;
+	int ganttSize;
 	float totalTurnaround = 0;
 	float totalWaiting = 0;
 	float avgTurnaround = 0;
@@ -92,6 +93,7 @@ int main()
 	cin>>algoType;
 	size = getNoOfProcesses();
 	Process P[size];
+	queue<Process> PQ;
 
 	// Setting details for each processes
 		cout << "Define the details of each processes" << endl;
@@ -102,6 +104,8 @@ int main()
 			P[i].setArrival(arrival);
 			cout << "Burst Time of Process " << i + 1 << " :";
 			cin >> burst;
+			if(algoType == 3)
+				P[i].setOriginalBurst(burst);
 			P[i].setBurst(burst);
 			if(algoType == 2)
 			{
@@ -118,19 +122,63 @@ int main()
 			cin>>quantum;
 		}
 
-		for(size_t i = 0; i < size; i++)
+		if(algoType != 3)
 		{
-			bubbleSortArrival(P, size,i);
-			// cout<<"ProcessA " <<P[i].getName()<<" ";
-			bubbleSortPriority(P,size,completion,i);
-			// cout<<"ProcessP " <<P[i].getName()<<endl;
-			completion += P[i].getBurst();
-			// cout<<" "<<completion<<endl;
-			P[i].setCompletion(completion);
-			if(!(P[i + 1].getArrival() <= completion))
-				break;
+			for(size_t i = 0; i < size; i++)
+			{
+				bubbleSortArrival(P, size,i);
+				bubbleSortPriority(P,size,completion,i);
+				completion += P[i].getBurst();
+				P[i].setCompletion(completion);
+				if(!(P[i + 1].getArrival() <= completion))
+					break;
+			}
 		}
 
+			queue<Process> PV;
+		if(algoType == 3)
+		{
+			Process temp_array[size];
+			bubbleSortArrival(P,size,0);
+			completion = 0;
+			int j = 0;
+			do
+			{
+				for(int i = j; i < size ;i++)
+				{
+					if(P[i].getArrival() <= completion)
+					{
+						PQ.push(P[i]);
+						j++;
+					}
+				}
+				Process front = PQ.front();
+				if(front.getBurst() > quantum)
+				{
+					front.setBurst(front.getBurst() - quantum);
+					completion += quantum;
+					PQ.push(front);
+				}
+				else
+				{
+					completion += front.getBurst();
+					front.setBurst(front.getBurst() - front.getBurst());
+					front.setCompletion(completion);
+					cout<<front.getName()<<": "<<front.getCompletion()<< " > "
+						<<completion<<endl;
+					temp_array[front.getName()] = front;
+				}
+				PV.push(front);
+				PQ.pop();
+				// cout<<completion<<endl;
+			}while(!PQ.empty());
+			for(int i = 0; i < size;i++)
+			{
+				P[i] = temp_array[i];
+				P[i].setBurst(P[i].getOriginalBurst());
+			}
+			ganttSize = PV.size();
+		}
 
 	for(int i = 0;i < size;i++)
 	{
@@ -148,18 +196,33 @@ int main()
 	cout << "Total Waiting Time :" << totalWaiting << endl;
 	cout << "Average Waiting Time :" << avgWaiting << endl;
 
-	int name[size];
-	int time[size];
+	int name[ganttSize];
+	int time[ganttSize];
 
-	for (size_t i = 0; i < size; i++)
+	if(algoType != 3)
 	{
-		name[i] = P[i].getName();
-		time[i] = P[i].getCompletion();
+		for (size_t i = 0; i < size; i++)
+		{
+			name[i] = P[i].getName();
+			time[i] = P[i].getCompletion();
+		}
+	}
+	else
+	{
+		int i = 0;
+		while(!(PV.empty()))
+		{
+			Process front = PV.front();
+			name[i] = front.getName();
+			time[i] = front.getCompletion();
+			PV.pop();
+		}
 	}
 
 	float avg[2] = {avgTurnaround,avgWaiting};
 	float total[2] = {totalTurnaround,totalWaiting};
+
 		printTable(avg,total,size,P);
-	printGanttChart(size,name,time);
+		printGanttChart(ganttSize,name,time);
 
 }
