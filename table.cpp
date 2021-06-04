@@ -67,12 +67,12 @@ void printTableHorz(char P1, char P2, char P3)
 	}
 }
 
-void printTable( float avg[], float sum[], int tJobs, Process P[])
+void printTable( float avg[], float sum[], int size, Process P[])
 {
 	cout<<endl<<"Table: ";
 	printTableHorz(TL, TM, TR);
-	cout<<endl<<VERT<<"         "<<VERT<<" Arrival Time "<<VERT<<" Burst Time "<<VERT<<" Priority "<<VERT<<" Finishing Time "<<VERT<<" Turnaround Time "<<VERT<<" Waiting Time "<<VERT;
-	for(int i = 0; i < tJobs; i++)
+	cout<<endl<<VERT<<"         "<<VERT<<" Arrival Time "<<VERT<<" Burst Time "<<VERT<<" Priority "<<VERT<<" Completion Time"<<VERT<<" Turnaround Time "<<VERT<<" Waiting Time "<<VERT;
+	for(int i = 0; i < size; i++)
 	{
 		printTableHorz(VR, VH, VL);
 		cout<<left;

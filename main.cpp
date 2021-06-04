@@ -92,11 +92,11 @@ int main()
 	cout<<"3.Round Robin"<<endl;
 	cin>>algoType;
 	size = getNoOfProcesses();
-	
+
 	//change
 	ganttSize = size;
 	//change end
-	
+
 	Process P[size];
 	queue<Process> PQ;
 
@@ -147,7 +147,7 @@ int main()
 			bubbleSortArrival(P,size,0);
 			completion = 0;
 			int j = 0;
-			
+
 			//change
 			for(int i = j; i < size ;i++)
 			{
@@ -159,18 +159,18 @@ int main()
 			}
 			//change end
 			do
-			{	
+			{
 				//change
 				Process front = PQ.front();
 				if(front.getBurst() > quantum)
 				{
 					front.setBurst(front.getBurst() - quantum);
-					completion += quantum;	
-					
+					completion += quantum;
+
 					//change
 					front.setCompletion(completion);
 					//change end
-					
+
 					//change
 				}
 				else
@@ -182,8 +182,7 @@ int main()
 						<<completion<<endl;
 					temp_array[front.getName()] = front;
 				}
-				
-				//change
+
 				for(int i = j; i < size ;i++)
 				{
 					if(P[i].getArrival() <= completion)
@@ -194,11 +193,9 @@ int main()
 				}
 				if(front.getBurst() != 0)
 					PQ.push(front);
-				//change end
-				
+
 				PV.push(front);
 				PQ.pop();
-				// cout<<completion<<endl;
 			}while(!PQ.empty());
 			for(int i = 0; i < size;i++)
 			{
@@ -244,7 +241,7 @@ int main()
 			name[i] = front.getName();
 			time[i] = front.getCompletion();
 			PV.pop();
-			
+
 			//change
 			i++;
 			//end change
