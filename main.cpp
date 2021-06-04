@@ -92,6 +92,11 @@ int main()
 	cout<<"3.Round Robin"<<endl;
 	cin>>algoType;
 	size = getNoOfProcesses();
+	
+	//change
+	ganttSize = size;
+	//change end
+	
 	Process P[size];
 	queue<Process> PQ;
 
@@ -135,29 +140,38 @@ int main()
 			}
 		}
 
-			queue<Process> PV;
+		queue<Process> PV;
 		if(algoType == 3)
 		{
 			Process temp_array[size];
 			bubbleSortArrival(P,size,0);
 			completion = 0;
 			int j = 0;
-			do
+			
+			//change
+			for(int i = j; i < size ;i++)
 			{
-				for(int i = j; i < size ;i++)
+				if(P[i].getArrival() <= completion)
 				{
-					if(P[i].getArrival() <= completion)
-					{
-						PQ.push(P[i]);
-						j++;
-					}
+					PQ.push(P[i]);
+					j++;
 				}
+			}
+			//change end
+			do
+			{	
+				//change
 				Process front = PQ.front();
 				if(front.getBurst() > quantum)
 				{
 					front.setBurst(front.getBurst() - quantum);
-					completion += quantum;
-					PQ.push(front);
+					completion += quantum;	
+					
+					//change
+					front.setCompletion(completion);
+					//change end
+					
+					//change
 				}
 				else
 				{
@@ -168,6 +182,20 @@ int main()
 						<<completion<<endl;
 					temp_array[front.getName()] = front;
 				}
+				
+				//change
+				for(int i = j; i < size ;i++)
+				{
+					if(P[i].getArrival() <= completion)
+					{
+						PQ.push(P[i]);
+						j++;
+					}
+				}
+				if(front.getBurst() != 0)
+					PQ.push(front);
+				//change end
+				
 				PV.push(front);
 				PQ.pop();
 				// cout<<completion<<endl;
@@ -216,6 +244,10 @@ int main()
 			name[i] = front.getName();
 			time[i] = front.getCompletion();
 			PV.pop();
+			
+			//change
+			i++;
+			//end change
 		}
 	}
 
