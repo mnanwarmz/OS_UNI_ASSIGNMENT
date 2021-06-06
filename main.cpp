@@ -51,7 +51,7 @@ void bubbleSortPriority(Process arr[], int n, int completion, int ea)
 
 		for (j = ea; j < n - i - 1; j++)
 		{
-			if(arr[j].getArrival() <= completion)
+			if((arr[j].getArrival() <= completion) && (arr[j + 1].getArrival() <= completion))
 				if (arr[j].getPriority() > arr[j + 1].getPriority())
 					swap(&arr[j], &arr[j + 1]);
 		}
@@ -64,7 +64,7 @@ void bubbleSortBurst(Process arr[], int n, int completion, int ea)
 
 		for (j = ea; j < n - i - 1; j++)
 		{
-			if(arr[j].getArrival() <= completion)
+			if((arr[j].getArrival() <= completion) && (arr[j + 1].getArrival() <= completion))
 				if (arr[j].getBurst() > arr[j + 1].getBurst())
 					swap(&arr[j], &arr[j + 1]);
 		}
@@ -93,9 +93,7 @@ int main()
 	cin>>algoType;
 	size = getNoOfProcesses();
 
-	//change
 	ganttSize = size;
-	//change end
 
 	Process P[size];
 	queue<Process> PQ;
@@ -127,12 +125,16 @@ int main()
 			cin>>quantum;
 		}
 
+		completion = 0;
 		if(algoType != 3)
 		{
 			for(size_t i = 0; i < size; i++)
 			{
 				bubbleSortArrival(P, size,i);
-				bubbleSortPriority(P,size,completion,i);
+				if (algoType == 1)
+					bubbleSortBurst(P,size,completion,i);
+				if(algoType == 2)
+					bubbleSortPriority(P,size,completion,i);
 				completion += P[i].getBurst();
 				P[i].setCompletion(completion);
 				if(!(P[i + 1].getArrival() <= completion))
@@ -148,7 +150,6 @@ int main()
 			completion = 0;
 			int j = 0;
 
-			//change
 			for(int i = j; i < size ;i++)
 			{
 				if(P[i].getArrival() <= completion)
@@ -157,21 +158,15 @@ int main()
 					j++;
 				}
 			}
-			//change end
 			do
 			{
-				//change
 				Process front = PQ.front();
 				if(front.getBurst() > quantum)
 				{
 					front.setBurst(front.getBurst() - quantum);
 					completion += quantum;
 
-					//change
 					front.setCompletion(completion);
-					//change end
-
-					//change
 				}
 				else
 				{
@@ -242,9 +237,7 @@ int main()
 			time[i] = front.getCompletion();
 			PV.pop();
 
-			//change
 			i++;
-			//end change
 		}
 	}
 
