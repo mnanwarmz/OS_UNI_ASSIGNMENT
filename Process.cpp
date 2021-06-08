@@ -77,4 +77,3 @@ class Process
 			this->name = name;
 		}
 };
-

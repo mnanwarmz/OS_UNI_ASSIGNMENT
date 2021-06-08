@@ -70,7 +70,6 @@ void bubbleSortBurst(Process arr[], int n, int completion, int ea)
 		}
 }
 
-
 int main()
 {
 	int size;
@@ -92,13 +91,10 @@ int main()
 	cout<<"3.Round Robin"<<endl;
 	cin>>algoType;
 	size = getNoOfProcesses();
-
 	ganttSize = size;
-
 	Process P[size];
 	queue<Process> PQ;
 
-	// Setting details for each processes
 		cout << "Define the details of each processes" << endl;
 		for (int i = 0; i < size; i++)
 		{
@@ -118,13 +114,11 @@ int main()
 			}
 			P[i].setName(i);
 		}
-
 		if(algoType == 3)
 		{
 			cout<< "Enter Quantum"<<endl;
 			cin>>quantum;
 		}
-
 		completion = 0;
 		if(algoType != 3)
 		{
@@ -141,7 +135,6 @@ int main()
 					break;
 			}
 		}
-
 		queue<Process> PV;
 		if(algoType == 3)
 		{
@@ -199,26 +192,21 @@ int main()
 			}
 			ganttSize = PV.size();
 		}
-
 	for(int i = 0;i < size;i++)
 	{
 		totalTurnaround	+= P[i].getTurnaround();
 		totalWaiting += P[i].getWaiting();
 	}
-
 	avgTurnaround = totalTurnaround / size;
 	avgWaiting = totalWaiting / size;
-
 	cout << endl;
 	cout << "No. of Process :" << size << endl;
 	cout << "Total Turnaround Time :" << totalTurnaround << endl;
 	cout << "Average Turnaround Time :" << avgTurnaround << endl;
 	cout << "Total Waiting Time :" << totalWaiting << endl;
 	cout << "Average Waiting Time :" << avgWaiting << endl;
-
 	int name[ganttSize];
 	int time[ganttSize];
-
 	if(algoType != 3)
 	{
 		for (size_t i = 0; i < size; i++)
@@ -240,10 +228,8 @@ int main()
 			i++;
 		}
 	}
-
 	float avg[2] = {avgTurnaround,avgWaiting};
 	float total[2] = {totalTurnaround,totalWaiting};
-
 		printTable(avg,total,size,P);
 		printGanttChart(ganttSize,name,time);
 
