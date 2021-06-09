@@ -166,8 +166,6 @@ int main()
 					completion += front.getBurst();
 					front.setBurst(front.getBurst() - front.getBurst());
 					front.setCompletion(completion);
-					cout<<front.getName()<<": "<<front.getCompletion()<< " > "
-						<<completion<<endl;
 					temp_array[front.getName()] = front;
 				}
 
