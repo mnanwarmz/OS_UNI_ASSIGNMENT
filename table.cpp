@@ -1,3 +1,8 @@
+/*
+Student ID: 1181201475 Name : Muhammad Nabil Anwar bin Md Zaid
+Student ID:	1181201041 Name : Muhamad Danial bin Arrifin
+Student ID: 1181201507 Name : Affiq bin Mohamed Zulkiffli
+*/
 #include <iostream>
 #include <iomanip>
 #include <cmath>
